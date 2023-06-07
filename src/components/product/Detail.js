@@ -1,8 +1,26 @@
 import {Button, Modal} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {findProductById} from "../../services/productService";
 
 const Detail = (props) =>{
+    let dispatch = useDispatch();
+    const { show, handleClose, dataProductDetail} = props;
 
-    const { show, handleClose} = props;
+
+
+    const product = useSelector((state) => {
+        return state.products.currentProduct
+    });
+
+    console.log(product)
+
+    useEffect(() =>{
+        dispatch(findProductById(dataProductDetail))
+    },[dataProductDetail])
+
+
+
     return(
         <>
             <Modal show={show} onHide={handleClose}>
@@ -10,19 +28,10 @@ const Detail = (props) =>{
                     <Modal.Title>Edit new Product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/*<div className="mb-3">*/}
-                    {/*    <label className="form-label">Name</label>*/}
-                    {/*    <input*/}
-                    {/*        type="text"*/}
-                    {/*        className="form-control"*/}
-                    {/*        value={title}*/}
-                    {/*        onChange={(event) => setTitle(event.target.value)}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
 
-
-
-
+                    <div>Title: {product.title}</div>
+                    <div>Price: {product.price}</div>
+                    <div>Description: {product.description}</div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

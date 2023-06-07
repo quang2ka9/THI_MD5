@@ -11,8 +11,9 @@ import Detail from "./Detail";
 const List = () => {
     const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [a, setShowDetailModal] = useState(false);
+    const [showDetailModal, setShowDetailModal] = useState(false);
     const [dataProductEdit, setDataProductEdit] = useState({});
+    const [dataProductDetail, setDataProductDetail] = useState({});
 
     const handleClose = () => {
         setIsShowModalAddNew(false);
@@ -42,7 +43,8 @@ const List = () => {
     };
 
     const handleDetailProduct = (id) => {
-        dispatch(findProductById(id));
+        setDataProductDetail(id)
+        setShowDetailModal(id)
     };
 
     useEffect(() => {
@@ -106,6 +108,7 @@ const List = () => {
 
             <Detail
                 show={showDetailModal}
+                dataProductDetail={dataProductDetail}
                 handleClose={handleClose}
             />
 
